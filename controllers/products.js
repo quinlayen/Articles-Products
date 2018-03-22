@@ -4,8 +4,10 @@ const bp = require('body-parser');
 const DS_Products = require('../models/DS_Products');
 
 router.get('/products', (req, res) => {
+    const productList = DS_Products.getAllProducts();
   res.render('./templates/index.hbs', {
-    pageTitle: 'Main Page'
+    pageTitle: 'List of all Products',
+    productList
   });
 });
 router.get('/products/new', (req, res) => {
