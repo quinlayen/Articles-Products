@@ -18,20 +18,28 @@ router.get('/products/new', (req, res) => {
 
 router.get('/products/:id', (req, res) => {
   const id = req.params.id;
+  const productDetails = DS_Products.getProductById();
   res.render('./templates/products.hbs', {
-    pageTitle: 'Products'
+    pageTitle: 'Products by ID',
+    productDetails
   });
 });
 
 router.get('/products/:id/edit', (req, res) => {
-  const idEdit = req.params.id;
+  const idEdit = Number(req.params.id);
   res.render('./templates/edit.hbs', {
     pageTitle: 'Edit'
   });
 });
 
 router.post('/products', (req, res) => {
-  res.send('post products');
+  const newItem = req.body
+  postNewItem = DS_Products.postNewItem(newItem);
+  //console.log('req.body', req.body);
+  res.render('./templates/index.hbs', {
+    pageTitle: 'List of all Products',
+    postNewItem
+  });
 });
 
 router.put('/products/:id', (req, res) => {
