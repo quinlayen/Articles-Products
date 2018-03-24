@@ -25,7 +25,15 @@ getAllProducts(){
 }
 
 getProductById(){
-    
+    let result;
+    return this.storage.indexOf(this.idNum)
+    console.log('idNum', this.idNum);
+}
+
+postNewItem(newItem){
+    newItem.id = this.idNum++
+    this.storage.push(newItem)
+    console.log('this.storage', this.storage);
 }
 
 }
