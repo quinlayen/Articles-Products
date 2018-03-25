@@ -43,7 +43,11 @@ router.post('/products', (req, res) => {
 });
 
 router.put('/products/:id', (req, res) => {
+  const editItem = req.body;
   const idEdit = Number(req.params.id);
+  console.log('idEdit', idEdit);
+  console.log('editItem', editItem);
+  DS_Products.changeItemDetails(idEdit)
   
 });
 
