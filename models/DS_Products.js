@@ -43,7 +43,10 @@ postNewItem(newItem){
 }
 
 changeItemDetails(changeItem){
-
+    const itemToSelect = this.getProductById(changeItem);
+    console.log('itemToSelect', itemToSelect);
+    
+    
 }
 
 }
