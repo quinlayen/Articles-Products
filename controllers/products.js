@@ -1,55 +1,70 @@
 const express = require('express');
 const router = express.Router();
-const bp = require('body-parser');
 const DS_Products = require('../models/DS_Products');
 
+
+//renders a page showing all current items
 router.get('/products', (req, res) => {
-    const productList = DS_Products.getAllProducts();
+  
+  const productList = DS_Products.getAllProducts();
   res.render('./templates/products/index.hbs', {
     pageTitle: 'List of all Products',
     productList
   });
 });
+
+
 router.get('/products/new', (req, res) => {
   res.render('./templates/products/new.hbs', {
-    pageTitle: 'New'
+    pageTitle: 'Add a new product'
   });
 });
 
+//renders a page given a specific item id
 router.get('/products/:id', (req, res) => {
   const id = Number(req.params.id);
   res.render('./templates/products/products.hbs', 
     DS_Products.getProductById(id))
 });
 
+//renders a page to allow for an existing item to be changed
 router.get('/products/:id/edit', (req, res) => {
   const idEdit = Number(req.params.id);
   const getProductById = DS_Products.getProductById(idEdit)
   res.render('./templates/products/edit.hbs', {
-    pageTitle: 'Edit',
+    pageTitle: 'Edit existing product',
     getProductById
   });
 });
 
+//creates a new item and then render the index list page
 router.post('/products', (req, res) => {
   const newItem = req.body
-  
-  postNewItem = DS_Products.postNewItem(newItem);
-  res.render('./templates/products/index.hbs', {
-    pageTitle: 'List of all Products',
-    postNewItem,
-    
-  });
+  const newPostID = DS_Products.createNewItem(newItem);
+  res.redirect(`/products/${newPostID}`);
+
 });
 
 router.put('/products/:id', (req, res) => {
+  console.log(req)
   const editItem = req.body;
+  const itemName = req.body.name;
   const idEdit = Number(req.params.id);
-  console.log('idEdit', idEdit);
-  console.log('editItem', editItem);
-  DS_Products.changeItemDetails(idEdit)
+  DS_Products.changeItemDetails(idEdit);
+  res.render('./templates/products/index.hbs', {
+    pageTitle: 'List of all Products',
+    completionMessage: `${itemName} has been updated successfully`,
+    changeItemDetails
+  })
   
 });
+//create a route for products/submit.  Should be a 
+router.post('/submit', (req,res)=>{
+const newItem = req.body;
+const newPostID = DS_Products.createNewItem(newItem)
+res.redirect(`products/${newPostID}`)
+})
+
 
 router.delete('/products/:id', (req, res) => {
   res.send('delete products id');
