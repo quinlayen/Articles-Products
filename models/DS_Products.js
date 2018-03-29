@@ -6,17 +6,17 @@ class DS_Products {
     }
     initMockProducts(){
         this.storage.push({
-            id: this.idNum,
             name: 'Test item 1',
-            price: '200',
-            inventory: '1'
+            price: '$200',
+            inventory: '1',
+            id: this.idNum
         })
         this.idNum++;
         this.storage.push({
-            id: this.idNum,
             name: 'Test item 2',
-            price: '100',
-            inventory: 3
+            price: '$100',
+            inventory: 3,
+            id: this.idNum
         })
         this.idNum++
     }
@@ -32,22 +32,22 @@ class DS_Products {
             result = element;
             return result
         }  
-        
     })
     return result
 }
 
-postNewItem(newItem){
+createNewItem(newItem){
     newItem.id = this.idNum++
-    this.storage.push(newItem)
+    this.storage.push(newItem);
+    return newItem.id
 }
 
 changeItemDetails(changeItem){
     const itemToSelect = this.getProductById(changeItem);
     console.log('itemToSelect', itemToSelect);
-    
-    
 }
+
+
 
 }
 module.exports = new DS_Products()
