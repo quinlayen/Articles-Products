@@ -1,12 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const DS_Articles = require('../models/DS_Articles')
 
+//gets a list of all articles
 router.get('/articles', (req,res)=>{
-    res.send('get articles')
+    const articleList = DS_Articles.getAllArticles()
+    res.render('./templates/articles/index.hbs',{
+        pageTitle: 'List of all Articles',
+        articleList
+    })
 })
-
+//gets an article based on a title search
 router.get('/articles/:title', (req,res)=>{
-    res.send('get articles title')
+    const title = req.params.title;
+    const specificArticle = DS_Articles.getArticleByTitle(title)
+    res.render('/templates/articles/articles.hbs',{
+        pageTitle: `Page for ${title}`,
+        ...specificArticle
+    })
+    
 })
 
 router.get('/articles/:title/edit', (req,res)=>{
