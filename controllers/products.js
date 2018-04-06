@@ -23,8 +23,11 @@ router.get('/products/new', (req, res) => {
 //renders a page given a specific item id
 router.get('/products/:id', (req, res) => {
   const id = Number(req.params.id);
-  res.render('./templates/products/products.hbs', 
-    DS_Products.getProductById(id))
+  const specificProduct = DS_Products.getProductById(id);
+  res.render('./templates/products/products.hbs',{
+  pageTitle:`Page for product ${id}`,
+  ...specificProduct
+  })
 });
 
 //renders a page to allow for an existing item to be changed
