@@ -5,11 +5,7 @@ const hbs = require('express-handlebars')
 const logger = require('morgan');
 const expressValidator = require('express-validator');
 const expressSession = require('express-session');
-const knex = require('knex')({
-    client: 'pq',
-    connection: process.env.PG_CONNECTION_STRING,
-    searchPath: ['knex', 'public']
-})
+
 app.engine('hbs', hbs({
     defaultLayout: 'main',
     layoutsDir: __dirname +'/views/layouts/',
