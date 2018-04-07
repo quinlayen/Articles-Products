@@ -7,6 +7,7 @@ const DS_Products = require('../models/DS_Products');
 router.get('/products', (req, res) => {
   
   const productList = DS_Products.getAllProducts();
+  console.log('productList', productList);
   res.render('./templates/products/index.hbs', {
     pageTitle: 'List of all Products',
     productList

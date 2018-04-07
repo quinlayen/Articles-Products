@@ -1,40 +1,37 @@
+const knex = require('knex')({
+  client: 'pg',
+  connection: {
+      host: '127.0.0.1',
+      user: 'articles_products_user',
+      password:'Boardgamer',
+      database:'articles_products'
+  }
+})
+
 class DS_Products {
   constructor() {
     this.storage = [];
     this.idNum = 1;
-    this.initMockProducts();
   }
-  initMockProducts() {
-    this.storage.push({
-      name: 'Test item 1',
-      price: '$200',
-      inventory: '1',
-      id: this.idNum
-    });
-    this.idNum++;
-    this.storage.push({
-      name: 'Test item 2',
-      price: '$100',
-      inventory: 3,
-      id: this.idNum
-    });
-    this.idNum++;
-  }
-
+  
   getAllProducts() {
-    return this.storage.slice();
+    return knex.raw('SELECT * from products')
+      .then ( (data)=>{
+        console.log('data.rows', data.rows);
+        return data.rows
+      })
+    
   }
 
   getProductById(id) {
-    let result;
-    const filteredId = this.storage.forEach(element => {
-      if (element.id === id) {
-        result = element;
-        return result;
+   return knex.raw(`SELECT * from products where id = ${id}`)
+    .then ( (data)=>{
+
+    })
       }
-    });
-    return result;
-  }
+    
+  
+
 
   createNewItem(newItem) {
     newItem.id = this.idNum++;
@@ -52,3 +49,27 @@ class DS_Products {
   }
 }
 module.exports = new DS_Products();
+
+
+// module.exports = [
+//   {
+//     name: 'Empire of the Void',
+//     price: 69,
+//     inventory: 4
+//   },
+//   {
+//     name: 'Dungeon Alliance',
+//     price: 79,
+//     inventory: 1
+//   },
+//   {
+//     name: 'Twilight Imperium',
+//     price: 150,
+//     inventory: 2
+//   },
+//   {
+//     name: 'Kingdom Death',
+//     price: 300,
+//     inventory: 0
+//   }
+// ]
