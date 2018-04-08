@@ -27,8 +27,7 @@ class DS_Products {
         return data.rows;
     })
       }
-    
-
+  
 
   createNewItem(newItem) {
     
@@ -39,9 +38,19 @@ class DS_Products {
     
   }
 
-  changeItemDetails(changeItem) {
-    const itemToSelect = this.getProductById(changeItem);
-    //console.log('itemToSelect', itemToSelect);
+  changeItemDetails(itemID,changeItem) {
+    //console.log('changeItem', changeItem);
+    let query = '';
+    for (let key in changeItem){
+     query += ` ${key} = '${changeItem[key]}',`
+    }
+    query = query.substring(0,query.length-1);
+    console.log('query', query);
+   
+    return knex.raw(`UPDATE products SET ${query} WHERE product_id = ${itemID}`)
+    .then ( (data)=>{
+      return data.rows;
+    })
   }
   
   deleteItem(id){

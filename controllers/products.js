@@ -29,7 +29,6 @@ router.get('/products/:id', (req, res) => {
   DS_Products.getProductById(id)
   .then( (data)=>{
     let selectedProduct = data[0];
-    console.log('test', selectedProduct.product_name)
     res.render('./templates/products/products.hbs',{
     pageTitle:`Page for product ${id}`,
     ...selectedProduct
@@ -51,21 +50,22 @@ router.get('/products/:id/edit', (req, res) => {
 //creates a new item and then render the index list page
 router.post('/products', (req, res) => {
   const newItem = req.body
-  DS_Products.createNewItem(newItem);
-  res.redirect(`/products`);
+  DS_Products.createNewItem(newItem)
+  .then ( (data)=>{
+    res.redirect(`/products`);
+  })
 
 });
 
 router.put('/products/:id', (req, res) => {
-  console.log(req)
   const editItem = req.body;
-  const itemName = req.body.name;
-  const idEdit = Number(req.params.id);
-  DS_Products.changeItemDetails(idEdit);
-  res.render('./templates/products/index.hbs', {
-    pageTitle: 'List of all Products',
-    completionMessage: `${itemName} has been updated successfully`,
-    changeItemDetails
+  const editId = Number(req.params.id);
+  DS_Products.changeItemDetails(editId,editItem)
+  .then( (data)=>{
+    res.render('./templates/products/index.hbs', {
+      pageTitle: 'List of all Products',
+      data
+    })
   })
   
 });
