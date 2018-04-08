@@ -10,8 +10,7 @@ const knex = require('knex')({
 
 class DS_Products {
   constructor() {
-    this.storage = [];
-    this.idNum = 1;
+    
   }
   
   getAllProducts() {
@@ -29,13 +28,15 @@ class DS_Products {
     })
       }
     
-  
 
 
   createNewItem(newItem) {
-    newItem.id = this.idNum++;
-    this.storage.push(newItem);
-    return newItem.id;
+    
+    return knex.raw(`INSERT INTO products VALUES (default, '${newItem.product_name}', ${newItem.product_price}, ${newItem.inventory_num})`)
+    .then ( (data)=>{
+        return data.rows;   
+    })
+    
   }
 
   changeItemDetails(changeItem) {
