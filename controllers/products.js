@@ -51,8 +51,8 @@ router.get('/products/:id/edit', (req, res) => {
 //creates a new item and then render the index list page
 router.post('/products', (req, res) => {
   const newItem = req.body
-  const newPostID = DS_Products.createNewItem(newItem);
-  res.redirect(`/products/${newPostID}`);
+  DS_Products.createNewItem(newItem);
+  res.redirect(`/products`);
 
 });
 
