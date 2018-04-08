@@ -79,8 +79,10 @@ res.redirect(`products/${newPostID}`)
 
 router.delete('/products/:id', (req, res) => {
   const id = Number(req.params.id);
-  DS_Products.deleteItem(id);
-  res.redirect('/products')
+  DS_Products.deleteItem(id)
+  .then( (data)=>{
+    res.redirect('/products')   
+  })
 });
 
 module.exports = router;
