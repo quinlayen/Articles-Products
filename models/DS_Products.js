@@ -54,7 +54,10 @@ class DS_Products {
   }
   
   deleteItem(id){
-      return this.storage.splice(this.storage.indexOf(id), 1)
+      return knex.raw(`DELETE FROM products WHERE product_id = ${id}`)
+      .then( (data)=>{
+        return data.rows;
+      })
   }
 }
 module.exports = new DS_Products();
