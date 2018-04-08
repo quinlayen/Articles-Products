@@ -8,13 +8,12 @@ router.get('/products', (req, res) => {
   
   DS_Products.getAllProducts()
   .then( (data)=>{
-    console.log('test',data[0]);
+    //console.log('test',data[3]);
     res.render('./templates/products/index.hbs', {
       pageTitle: 'List of all Products',
       data
     });
   })
-  
 });
 
 
@@ -27,10 +26,15 @@ router.get('/products/new', (req, res) => {
 //renders a page given a specific item id
 router.get('/products/:id', (req, res) => {
   const id = Number(req.params.id);
-  const specificProduct = DS_Products.getProductById(id);
-  res.render('./templates/products/products.hbs',{
-  pageTitle:`Page for product ${id}`,
-  ...specificProduct
+  DS_Products.getProductById(id)
+  .then( (data)=>{
+    let selectedProduct = data[0];
+    console.log('test', selectedProduct.product_name)
+    res.render('./templates/products/products.hbs',{
+    pageTitle:`Page for product ${id}`,
+    ...selectedProduct
+    })
+
   })
 });
 

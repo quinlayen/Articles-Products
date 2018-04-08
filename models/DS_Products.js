@@ -15,17 +15,17 @@ class DS_Products {
   }
   
   getAllProducts() {
-    return knex.raw('SELECT * from products')
+    return knex.raw('SELECT * FROM products')
       .then ( (data)=>{
-        return data.rows
+        return data.rows;
       })
     
   }
 
   getProductById(id) {
-   return knex.raw(`SELECT * from products where id = ${id}`)
+   return knex.raw(`SELECT * FROM products WHERE product_id = ${id}`)
     .then ( (data)=>{
-
+        return data.rows;
     })
       }
     
