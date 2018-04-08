@@ -17,7 +17,6 @@ class DS_Products {
   getAllProducts() {
     return knex.raw('SELECT * from products')
       .then ( (data)=>{
-        console.log('data.rows', data.rows);
         return data.rows
       })
     
@@ -41,7 +40,7 @@ class DS_Products {
 
   changeItemDetails(changeItem) {
     const itemToSelect = this.getProductById(changeItem);
-    console.log('itemToSelect', itemToSelect);
+    //console.log('itemToSelect', itemToSelect);
   }
   
   deleteItem(id){

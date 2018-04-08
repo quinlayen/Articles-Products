@@ -6,12 +6,15 @@ const DS_Products = require('../models/DS_Products');
 //renders a page showing all current items
 router.get('/products', (req, res) => {
   
-  const productList = DS_Products.getAllProducts();
-  console.log('productList', productList);
-  res.render('./templates/products/index.hbs', {
-    pageTitle: 'List of all Products',
-    productList
-  });
+  DS_Products.getAllProducts()
+  .then( (data)=>{
+    console.log('test',data[0]);
+    res.render('./templates/products/index.hbs', {
+      pageTitle: 'List of all Products',
+      data
+    });
+  })
+  
 });
 
 
