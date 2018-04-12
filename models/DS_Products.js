@@ -30,7 +30,7 @@ class DS_Products {
   
 
   createNewItem(newItem) {
-    
+    //console.log('newItem', newItem);
     return knex.raw(`INSERT INTO products VALUES (default, '${newItem.product_name}', ${newItem.product_price}, ${newItem.inventory_num})`)
     .then ( (data)=>{
         return data.rows;   
