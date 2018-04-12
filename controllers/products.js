@@ -71,9 +71,10 @@ router.put('/products/:id', (req, res) => {
 });
 //create a route for products/submit.  Should be a 
 router.post('/submit', (req,res)=>{
+  console.log('req.body', req.body);
 const newItem = req.body;
-const newPostID = DS_Products.createNewItem(newItem)
-res.redirect(`products/${newPostID}`)
+DS_Products.createNewItem(newItem)
+//res.redirect(`products/${newPostID}`)
 })
 
 
